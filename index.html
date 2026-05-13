@@ -3,27 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirMaster | Climatización de Lujo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>AirLuxury | Mantenimiento Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0a192f;    /* Azul Medianoche */
-            --secondary: #b8926a;  /* Dorado Sutil */
-            --bg-light: #f9f9f9;   /* Blanco Hueso */
-            --text-dark: #2d3436;
+            --primary: #0a192f;
+            --accent: #b8926a;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background-color: #f4f4f4;
+            color: var(--primary);
             overflow-x: hidden;
+        }
+
+        /* Slider de fondo fluido */
+        .bg-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .bg-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .bg-slide.active { opacity: 1; }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 25, 47, 0.7), rgba(244, 244, 244, 1));
+        }
+
+        /* Secciones */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 5%;
+        }
+
+        .content-box {
+            background: var(--glass);
+            padding: 60px;
+            border-radius: 20px;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .content-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .text-side p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .accent-line {
+            width: 50px;
+            height: 4px;
+            background: var(--accent);
+            margin-bottom: 20px;
         }
 
         header {
@@ -32,140 +114,101 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), 
-                        url('https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=2070&auto=format&fit=crop') center/cover;
-            color: white;
             text-align: center;
-            padding: 20px;
+            color: white;
         }
 
-        h1 {
+        header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 10px;
         }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .services {
-            padding: 80px 10% ;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-bottom: 4px solid transparent;
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            border-bottom: 4px solid var(--secondary);
-            transform: translateY(-10px);
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 5px 12px;
-            background: var(--secondary);
-            color: white;
-            font-size: 0.8rem;
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-top: 50px;
-            color: var(--primary);
-        }
-
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 40px;
-            text-align: center;
-            margin-top: 50px;
+        @media (max-width: 768px) {
+            .content-box { grid-template-columns: 1fr; padding: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Fondo dinámico -->
+    <div class="bg-slider">
+        <!-- Imagen Aires de Pared -->
+        <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069');"></div>
+        <!-- Imagen Aire de Ventana/Bloque -->
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&w=2070');"></div>
+        <!-- Imagen Técnico trabajando -->
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1581094281212-d1987ceae50e?q=80&w=2070');"></div>
+        <div class="overlay"></div>
+    </div>
+
     <header>
-        <h1 class="fade-in">Climatización de Alto Nivel</h1>
-        <p class="fade-in">Especialistas en sistemas Split y Unidades Compactas de Ventana.</p>
+        <div class="content-box visible" style="background: transparent; color: white; box-shadow: none; backdrop-filter: none;">
+            <div style="grid-column: 1 / -1;">
+                <h1>Excelencia en Clima</h1>
+                <p>Mantenimiento y limpieza de sistemas de alta gama.</p>
+            </div>
+        </div>
     </header>
 
-    <h2 class="section-title fade-in">Nuestros Servicios</h2>
-
-    <section class="services">
-        <!-- Servicio de Pared (Split) -->
-        <div class="card fade-in">
-            <span class="tag">Residencial</span>
-            <h3>Aires de Pared (Split)</h3>
-            <p>Mantenimiento profundo de evaporadoras, limpieza de turbinas y optimización de gas refrigerante para sistemas de pared.</p>
-        </div>
-
-        <!-- Servicio de Unidades Compactas (Cajón/Cuadrados) -->
-        <div class="card fade-in">
-            <span class="tag">Tradicional</span>
-            <h3>Unidades de Ventana</h3>
-            <p>Servicio técnico para aires compactos (todo en un bloque). Desincrustación de condensadores y limpieza integral de chasis.</p>
-        </div>
-
-        <!-- Instalación -->
-        <div class="card fade-in">
-            <span class="tag">Profesional</span>
-            <h3>Instalación y Ductería</h3>
-            <p>Montaje impecable con estándares de ingeniería, asegurando el menor impacto visual en su fachada.</p>
+    <!-- Sección de Pared (Split) -->
+    <section>
+        <div class="content-box fade-in">
+            <div class="text-side">
+                <div class="accent-line"></div>
+                <h2>Aires de Pared (Split)</h2>
+                <p>Nuestra limpieza técnica incluye el desmontaje de la carcasa, desinfección de la bandeja de drenaje y tratamiento antifúngico de la turbina. Utilizamos químicos biodegradables que no dañan el aluminio.</p>
+                <p><strong>Instalación:</strong> Canalización estética de tuberías para un acabado minimalista.</p>
+            </div>
+            <div class="image-side">
+                <img src="https://images.unsplash.com/photo-1631541490218-63951239c87d?q=80&w=800" alt="Instalación Split">
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 AirMaster. Excelencia en Aire Acondicionado.</p>
-    </footer>
+    <!-- Sección de Ventana (Cajón/Cuadrados) -->
+    <section>
+        <div class="content-box fade-in">
+            <div class="image-side">
+                <img src="https://images.unsplash.com/photo-1614633833026-0020656557ad?q=80&w=800" alt="Aire de Ventana">
+            </div>
+            <div class="text-side">
+                <div class="accent-line"></div>
+                <h2>Unidades de Ventana</h2>
+                <p>Especialistas en unidades compactas. Realizamos mantenimiento preventivo que evita el congelamiento y reduce el consumo eléctrico hasta en un 30%.</p>
+                <p>Limpieza a presión del serpentín externo y lubricación de motores de ventilación para un funcionamiento silencioso.</p>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Función para detectar el scroll y mostrar elementos
-        const faders = document.querySelectorAll('.fade-in');
+        // Lógica del Slider de Fondo
+        const slides = document.querySelectorAll('.bg-slide');
+        let currentSlide = 0;
 
-        const appearOptions = {
-            threshold: 0.2,
-            rootMargin: "0px 0px -50px 0px"
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000); // Cambia cada 5 segundos
+
+        // Lógica de Aparición (Fade In) al hacer Scroll
+        const observerOptions = {
+            threshold: 0.25
         };
 
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('visible');
-                appearOnScroll.unobserve(entry.target);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        }, appearOptions);
+        }, observerOptions);
 
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
+        document.querySelectorAll('.content-box').forEach(box => {
+            observer.observe(box);
         });
     </script>
 </body>
