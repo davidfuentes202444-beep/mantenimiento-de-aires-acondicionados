@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirLuxury - Ingeniería del Confort</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background-color: #050a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            color: #d4af37;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Slider Background */
+        .slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slider img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2.5s ease;
+            filter: brightness(0.35);
+        }
+
+        .slider img.active {
+            opacity: 1;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 50px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .section-content {
+            max-width: 600px;
+            backdrop-filter: blur(30px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #d4af37;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .section-image img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Scroll Reveal Animation */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .whatsapp-button img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slider Background -->
+    <div class="slider">
+        <img src="https://img.freepik.com/foto-gratis/aire-acondicionado-blanco-pared-blanca_1057-2283.jpg" class="active" alt="Aire acondicionado de pared">
+        <img src="https://m.media-amazon.com/images/I/71rIeUf6N5L._AC_SL1500_.jpg" alt="Unidad compacta de aire acondicionado">
+        <img src="hero1.jpg" alt="Mantenimiento técnico">
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Ingeniería del Confort</h1>
+    </div>
+
+    <!-- Split Section -->
+    <section>
+        <div class="section-content hidden">
+            <h2>Aires Split</h2>
+            <p>Instalación y mantenimiento de sistemas de aire acondicionado tipo Split, diseñados para ofrecer el máximo confort y eficiencia energética.</p>
+        </div>
+        <div class="section-image hidden">
+            <img src="https://img.freepik.com/foto-gratis/aire-acondicionado-blanco-pared-blanca_1057-2283.jpg" alt="Aire acondicionado Split">
+        </div>
+    </section>
+
+    <!-- Compact Section -->
+    <section class="reverse">
+        <div class="section-content hidden">
+            <h2>Unidades Compactas</h2>
+            <p>Soluciones para espacios reducidos con unidades compactas que garantizan un rendimiento óptimo y durabilidad.</p>
+        </div>
+        <div class="section-image hidden">
+            <img src="https://m.media-amazon.com/images/I/71rIeUf6N5L._AC_SL1500_.jpg" alt="Unidad compacta de aire acondicionado">
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/584242233099?text=¿Necesitas%20ayuda?%20¡Escríbenos!" class="whatsapp-button" target="_blank">
+        <img src="whatsapp-icon.png" alt="WhatsApp">
+    </a>
+
+    <!-- Cliengo Chatbot -->
+    <script type="text/javascript">
+        (function () {
+            var ldk = document.createElement('script');
+            ldk.type = 'text/javascript';
+            ldk.async = true;
+            ldk.src = 'https://s.cliengo.com/weboptimizer/company-id/source-id/ld.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ldk, s);
+        })();
+    </script>
+
+    <script>
+        // Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+        // Slider Background Logic
+        const slides = document.querySelectorAll('.slider img');
+        let currentSlide = 0;
+
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+    </script>
+</body>
+</html>
