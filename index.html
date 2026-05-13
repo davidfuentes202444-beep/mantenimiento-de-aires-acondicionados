@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirMaster | Climatización de Lujo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a192f;    /* Azul Medianoche */
+            --secondary: #b8926a;  /* Dorado Sutil */
+            --bg-light: #f9f9f9;   /* Blanco Hueso */
+            --text-dark: #2d3436;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), 
+                        url('https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=2070&auto=format&fit=crop') center/cover;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .services {
+            padding: 80px 10% ;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-bottom: 4px solid var(--secondary);
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-top: 50px;
+            color: var(--primary);
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="fade-in">Climatización de Alto Nivel</h1>
+        <p class="fade-in">Especialistas en sistemas Split y Unidades Compactas de Ventana.</p>
+    </header>
+
+    <h2 class="section-title fade-in">Nuestros Servicios</h2>
+
+    <section class="services">
+        <!-- Servicio de Pared (Split) -->
+        <div class="card fade-in">
+            <span class="tag">Residencial</span>
+            <h3>Aires de Pared (Split)</h3>
+            <p>Mantenimiento profundo de evaporadoras, limpieza de turbinas y optimización de gas refrigerante para sistemas de pared.</p>
+        </div>
+
+        <!-- Servicio de Unidades Compactas (Cajón/Cuadrados) -->
+        <div class="card fade-in">
+            <span class="tag">Tradicional</span>
+            <h3>Unidades de Ventana</h3>
+            <p>Servicio técnico para aires compactos (todo en un bloque). Desincrustación de condensadores y limpieza integral de chasis.</p>
+        </div>
+
+        <!-- Instalación -->
+        <div class="card fade-in">
+            <span class="tag">Profesional</span>
+            <h3>Instalación y Ductería</h3>
+            <p>Montaje impecable con estándares de ingeniería, asegurando el menor impacto visual en su fachada.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AirMaster. Excelencia en Aire Acondicionado.</p>
+    </footer>
+
+    <script>
+        // Función para detectar el scroll y mostrar elementos
+        const faders = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+    </script>
+</body>
+</html>
