@@ -3,213 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirLuxury | Mantenimiento Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <title>AirLuxury | Climatización de Vanguardia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0a192f;
-            --accent: #b8926a;
+            --primary: #0a141d;
+            --accent: #d4af37; /* Dorado */
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.08);
+            --transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f4f4;
-            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--white);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Slider de fondo fluido */
-        .bg-slider {
+        /* Contenedor de Fondos Dinámicos */
+        .bg-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1;
+            z-index: -2;
         }
 
-        .bg-slide {
+        .bg-img {
             position: absolute;
             width: 100%;
             height: 100%;
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            filter: brightness(0.4) scale(1.1);
+            transition: opacity 2s ease-in-out, transform 8s ease-out;
         }
 
-        .bg-slide.active { opacity: 1; }
+        .bg-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-        .overlay {
-            position: absolute;
+        /* Capa de Difuminado Gradual */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(10, 25, 47, 0.7), rgba(244, 244, 244, 1));
+            height: 100vh;
+            background: radial-gradient(circle, transparent 20%, var(--primary) 90%);
+            z-index: -1;
         }
 
-        /* Secciones */
         section {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 5%;
+            padding: 80px 10%;
         }
 
-        .content-box {
+        .glass-card {
             background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
             padding: 60px;
-            border-radius: 20px;
-            max-width: 1000px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(100px) scale(0.95);
+            transition: var(--transition);
         }
 
-        .content-box.visible {
+        .glass-card.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        .text-side h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
+        .text-content { flex: 1; }
+        
+        .image-content {
+            flex: 1;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .text-side p {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .image-side img {
+        .image-content img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.6s ease;
         }
 
-        .accent-line {
-            width: 50px;
-            height: 4px;
-            background: var(--accent);
-            margin-bottom: 20px;
-        }
+        .image-content img:hover { transform: scale(1.05); }
 
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-
-        header h1 {
+        h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
         }
 
-        @media (max-width: 768px) {
-            .content-box { grid-template-columns: 1fr; padding: 30px; }
+        .badge {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 5px 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: inline-block;
         }
+
+        p { font-weight: 200; font-size: 1.1rem; color: #ccc; }
+
+        /* Estilo del Hero (Sección de inicio) */
+        .hero-text { text-align: center; max-width: 800px; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 5rem; margin-bottom: 10px; }
+
     </style>
 </head>
 <body>
 
-    <!-- Fondo dinámico -->
-    <div class="bg-slider">
-        <!-- Imagen Aires de Pared -->
-        <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069');"></div>
-        <!-- Imagen Aire de Ventana/Bloque -->
-        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&w=2070');"></div>
-        <!-- Imagen Técnico trabajando -->
-        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1581094281212-d1987ceae50e?q=80&w=2070');"></div>
-        <div class="overlay"></div>
+    <!-- Slider de Fondo Realista -->
+    <div class="bg-container">
+        <!-- Fondo 1: Aire de Pared Moderno -->
+        <div class="bg-img active" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=2000');"></div>
+        <!-- Fondo 2: Aire de Ventana/Cajón -->
+        <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=2000');"></div>
+        <!-- Fondo 3: Detalle Técnico -->
+        <div class="bg-img" style="background-image: url('https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&q=80&w=2000');"></div>
     </div>
+    <div class="vignette"></div>
 
-    <header>
-        <div class="content-box visible" style="background: transparent; color: white; box-shadow: none; backdrop-filter: none;">
-            <div style="grid-column: 1 / -1;">
-                <h1>Excelencia en Clima</h1>
-                <p>Mantenimiento y limpieza de sistemas de alta gama.</p>
-            </div>
-        </div>
-    </header>
-
-    <!-- Sección de Pared (Split) -->
+    <!-- SECCIÓN 1: BIENVENIDA -->
     <section>
-        <div class="content-box fade-in">
-            <div class="text-side">
-                <div class="accent-line"></div>
-                <h2>Aires de Pared (Split)</h2>
-                <p>Nuestra limpieza técnica incluye el desmontaje de la carcasa, desinfección de la bandeja de drenaje y tratamiento antifúngico de la turbina. Utilizamos químicos biodegradables que no dañan el aluminio.</p>
-                <p><strong>Instalación:</strong> Canalización estética de tuberías para un acabado minimalista.</p>
+        <div class="hero-text glass-card show" style="display: block; background: transparent; border: none; backdrop-filter: none;">
+            <span class="badge">Servicio Executive</span>
+            <h1>Ingeniería del Confort</h1>
+            <p>Mantenimiento especializado para hogares de alto nivel y oficinas corporativas.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: AIRES DE PARED -->
+    <section>
+        <div class="glass-card reveal">
+            <div class="text-content">
+                <span class="badge">Sistemas Split</span>
+                <h2>Sistemas de Pared</h2>
+                <p>Nuestra limpieza profunda no solo elimina el polvo, sino que sanitiza cada ducto con tecnología de vapor seco. Ideal para mantener la estética minimalista de su hogar mientras respira aire 100% puro.</p>
             </div>
-            <div class="image-side">
-                <img src="https://images.unsplash.com/photo-1631541490218-63951239c87d?q=80&w=800" alt="Instalación Split">
+            <div class="image-content">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35222026964?auto=format&fit=crop&q=80&w=800" alt="Pared">
             </div>
         </div>
     </section>
 
-    <!-- Sección de Ventana (Cajón/Cuadrados) -->
+    <!-- SECCIÓN 3: AIRES DE VENTANA (CUADRADOS) -->
     <section>
-        <div class="content-box fade-in">
-            <div class="image-side">
-                <img src="https://images.unsplash.com/photo-1614633833026-0020656557ad?q=80&w=800" alt="Aire de Ventana">
+        <div class="glass-card reveal" style="flex-direction: row-reverse;">
+            <div class="text-content">
+                <span class="badge">Unidades Compactas</span>
+                <h2>Unidades de Bloque</h2>
+                <p>El aire de ventana requiere una mano experta para su mantenimiento integral. Realizamos lavado por inmersión de chasis y restauración de panales para maximizar la eficiencia energética en unidades todo-en-uno.</p>
             </div>
-            <div class="text-side">
-                <div class="accent-line"></div>
-                <h2>Unidades de Ventana</h2>
-                <p>Especialistas en unidades compactas. Realizamos mantenimiento preventivo que evita el congelamiento y reduce el consumo eléctrico hasta en un 30%.</p>
-                <p>Limpieza a presión del serpentín externo y lubricación de motores de ventilación para un funcionamiento silencioso.</p>
+            <div class="image-content">
+                <img src="https://images.unsplash.com/photo-1591123720164-de1348028a82?auto=format&fit=crop&q=80&w=800" alt="Ventana">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: INSTALACIÓN -->
+    <section>
+        <div class="glass-card reveal">
+            <div class="text-content">
+                <span class="badge">Montaje Pro</span>
+                <h2>Instalación Invisible</h2>
+                <p>Diseñamos la ruta de tuberías para que sean prácticamente invisibles. Perforaciones limpias, sellado hermético y configuración de termostatos inteligentes en cada unidad instalada.</p>
+            </div>
+            <div class="image-content">
+                <img src="https://images.unsplash.com/photo-1581094281212-d1987ceae50e?auto=format&fit=crop&q=80&w=800" alt="Instalacion">
             </div>
         </div>
     </section>
 
     <script>
-        // Lógica del Slider de Fondo
-        const slides = document.querySelectorAll('.bg-slide');
-        let currentSlide = 0;
+        // --- Cambiador de Fondo Fluido ---
+        const bgs = document.querySelectorAll('.bg-img');
+        let currentIdx = 0;
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        function changeBG() {
+            bgs[currentIdx].classList.remove('active');
+            currentIdx = (currentIdx + 1) % bgs.length;
+            bgs[currentIdx].classList.add('active');
         }
+        setInterval(changeBG, 5000);
 
-        setInterval(nextSlide, 5000); // Cambia cada 5 segundos
-
-        // Lógica de Aparición (Fade In) al hacer Scroll
-        const observerOptions = {
-            threshold: 0.25
-        };
-
+        // --- Detector de Aparición Difuminada (Scroll) ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('show');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.15 });
 
-        document.querySelectorAll('.content-box').forEach(box => {
-            observer.observe(box);
-        });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
+
 </body>
 </html>
